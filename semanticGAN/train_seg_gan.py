@@ -33,7 +33,7 @@ from torch import nn, autograd, optim
 from torch.nn import functional as F
 from torch.utils import data
 from torchvision import transforms, utils
-from torch.utils.tensorboard import SummaryWriter
+#from torch.utils.tensorboard import SummaryWriter
 
 from models.stylegan2_seg import GeneratorSeg, Discriminator, MultiscaleDiscriminator, GANLoss
 from dataloader.dataset import CelebAMaskDataset
@@ -584,7 +584,7 @@ if __name__ == '__main__':
     ckpt_dir = os.path.join(args.checkpoint_dir, 'run-'+current_time)
     os.makedirs(ckpt_dir, exist_ok=True)
 
-    writer = SummaryWriter(log_dir=os.path.join(ckpt_dir, 'logs'))
+    #writer = SummaryWriter(log_dir=os.path.join(ckpt_dir, 'logs'))
 
     n_gpu = int(os.environ['WORLD_SIZE']) if 'WORLD_SIZE' in os.environ else 1
     args.n_gpu = n_gpu

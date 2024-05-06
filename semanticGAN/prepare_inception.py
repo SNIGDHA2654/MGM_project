@@ -60,12 +60,14 @@ def extract_features(args, loader, inception, device):
 
 def get_dataset(args):
     if args.dataset_name == 'celeba-mask':
+        #train_val_dataset = CelebAMaskDataset(args, args.path, is_label=True, phase='train-val')
+        print('unlab')
         unlabel_dataset = CelebAMaskDataset(args, args.path, is_label=False)
-        train_val_dataset = CelebAMaskDataset(args, args.path, is_label=True, phase='train-val')
-        dataset = ConcatDataset([unlabel_dataset, train_val_dataset])
+        #dataset = ConcatDataset([unlabel_dataset, train_val_dataset])
     else:
         raise Exception('No such a dataloader!')
-    return dataset
+    #return dataset
+    return unlabel_dataset
 
 if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -86,10 +88,12 @@ if __name__ == '__main__':
     inception = inception_utils.load_inception_net()
 
     dset = get_dataset(args)
+    print('dset')
     loader = DataLoader(dset, batch_size=args.batch, num_workers=4)
+    print('loader')
 
     pools, logits = extract_features(args, loader, inception, device)
-
+    print('pools')
     # pools = pools[: args.n_sample]
     # logits = logits[: args.n_sample]
 

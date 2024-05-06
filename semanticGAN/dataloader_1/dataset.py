@@ -51,12 +51,14 @@ class CelebAMaskDataset(Dataset):
 
         self.args = args
         self.is_label = is_label
+        print('enter')
 
 
         if is_label == True:
             self.latent_dir = latent_dir
+            
             self.data_root = os.path.join(dataroot, 'label_data')
-        
+            print(self.data_root)
             if phase == 'train':
                 if limit_size is None:
                     self.idx_list = np.loadtxt(os.path.join(self.data_root, 'train_full_list.txt'), dtype=str)
@@ -160,9 +162,10 @@ class CelebAMaskDataset(Dataset):
             idx = idx % (self.data_size)
         img_idx = self.idx_list[idx]
         img_pil = Image.open(os.path.join(self.img_dir, img_idx)).convert('RGB').resize((self.resolution, self.resolution))
-        mask_pil = Image.open(os.path.join(self.label_dir, img_idx)).convert('L').resize((self.resolution, self.resolution), resample=0)
+       
         
         if self.is_label:
+            mask_pil = Image.open(os.path.join(self.label_dir, img_idx)).convert('L').resize((self.resolution, self.resolution), resample=0)
             if (self.phase == 'train' or self.phase == 'train-val') and self.aug:
                 augmented = self.aug_t(image=np.array(img_pil), mask=np.array(mask_pil))
                 aug_img_pil = Image.fromarray(augmented['image'])
@@ -188,7 +191,8 @@ class CelebAMaskDataset(Dataset):
                 'mask': mask_tensor
             }
         else:
-            img_tensor = self.unlabel_transform(img_pil)
+            #img_tensor = self.unlabel_transform(img_pil)
+            img_tensor = self.preprocess(img_pil)
             return {
                 'image': img_tensor,
             }
