@@ -33,10 +33,11 @@ from torch import nn, autograd, optim
 from torch.nn import functional as F
 from torch.utils import data
 from torchvision import transforms, utils
-#from torch.utils.tensorboard import SummaryWriter
+#from tensorboardX import SummaryWriter
+from torch.utils.tensorboard import SummaryWriter
 
 from models.stylegan2_seg import GeneratorSeg, Discriminator, MultiscaleDiscriminator, GANLoss
-from dataloader.dataset import CelebAMaskDataset
+from dataloader_1.dataset import CelebAMaskDataset
 
 from utils.distributed import (
     get_rank,
