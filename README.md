@@ -1,5 +1,5 @@
 # SemanticGAN
-Reproduced by Megha and Snigdha
+Reproduced by Megha and Snigdha (also tried for different datasets)
 
 #### Semantic Segmentation with Generative Models: Semi-Supervised Learning and Strong Out-of-Domain Generalization
 
